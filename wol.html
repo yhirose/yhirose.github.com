@@ -9,22 +9,18 @@
 <body>
 <div id='content'>
 <section id='header'>
-<h1>tips and utilities for wol</h1>
+<h1>tips and utilities for wol <span id="eyes">:</span><span id="lips">)</span></h1>
 </section>
 <section>
 <h2>keyboard shortcuts</h2>
 <ul>
-<li>F7: put focus on search field</li>
-<li>F8: toggle header bar</li>
+<li><strong>F7</strong> - put focus on search field</li>
+<li><strong>F8</strong> - toggle header bar</li>
 </ul>
 </section>
 <section id='bookmarklets'>
 <h2>bookmarklets</h2>
 <ul>
-<!-- Show page numbers -->
-<li><a href='javascript:(function(){var a=function(){if($(".pg").text().length){$(".pg").text("")}else{$.each($(".pg"),function(){var a=$(this);a.text("p."+a.attr("data-no")).css({"font-size":"0.8em","font-weight":"bold",margin:"0 2pt",padding:"1pt 2pt","vertical-align":"top","background-color":"#ff7f50",color:"#fffaf0"})})}$(".pg").toggle()};a()})()'>Show printed page numbers</a></li>
-<!-- Play Bible chapter MP3 audio file -->
-<li><a href="javascript:%0Afunction%20makeBibleChapterPlayer(lang,book,chap)%7Bvar%20fmt,url,names=%5B'Ge','Ex','Le','Nu','De','Jos','Jg','Ru','1Sa','2Sa','1Ki','2Ki','1Ch','2Ch','Ezr','Ne','Es','Job','Ps','Pr','Ec','Ca','Isa','Jer','La','Eze','Da','Ho','Joe','Am','Ob','Jon','Mic','Na','Hab','Zep','Hag','Zec','Mal','Mt','Mr','Lu','Joh','Ac','Ro','1Co','2Co','Ga','Eph','Php','Col','1Th','2Th','1Ti','2Ti','Tit','Phm','Heb','Jas','1Pe','2Pe','1Jo','2Jo','3Jo','Jude','Re'%5D;if($('audio').length)%7Breturn;%7D%0Afmt='http://download.jw.org/files/media_bible/%2502d_%25s_%25s_%250'+(book===19?3:2)+'d.mp3';url=$.sprintf(fmt,book,names%5Bbook-1%5D,lang.toUpperCase(),chap);$('%3Caudio%20controls%3E%3Csource%20src=%22'+url+'%22%3E%3C/source%3E%3Cp%3EAudio%20is%20not%20supported...%3C/p%3E%3C/audio%3E').appendTo('#header').css('width','100%25');$('#spacer').height($('#spacer').height()+$('audio').height());%7D%0A(function()%7Bvar%20url=$.url();if(url.segment(3)==='b')%7BmakeBibleChapterPlayer(url.segment(5).split('-')%5B1%5D,url.segment(6),url.segment(7));%7Delse%7Balert('This%20is%20not%20a%20Bible%20chapter...');%7D%7D());">Play Bible chapter MP3 audio file</a></li>
 </ul>
 </section>
 <section id='copyright'>
@@ -32,13 +28,17 @@ copyright &#169; 2012 yuji hirose. all rights reserved.
 </section>
 </div>
 <script>
-    var isTouchDevice = 'ontouchend' in document;
-    if (isTouchDevice) {
-        $.each($('#bookmarklets a'), function () {
-            var fixedHref = '?' + $(this).attr('href');
-            $(this).attr('href', fixedHref);
-        });
-    }
+    var isTouchDevice = 'ontouchend' in document,
+        marklets = [
+        ['Show/Hide header bar', "javascript:%0Aapp.toggleHeader();"],
+        ['Show/Hide printed page numbers', "javascript:%0Aif(!window.hasOwnProperty('woltools'))%7Bwoltools=%7B%7D;%7D%0Aif(!woltools.hasOwnProperty('togglePageNo'))%7Bwoltools.togglePageNo=function()%7Bif($('.pg').text().length)%7B$('.pg').text('');%7Delse%7B$.each($('.pg'),function()%7Bvar%20$this=$(this);$this.text('p.'+$this.attr('data-no')).css(%7B'font-size':'0.8em','font-weight':'bold','margin':'0%202pt','padding':'1pt%202pt','vertical-align':'top','background-color':'#ff7f50','color':'#fffaf0'%7D);%7D);%7D%0A$('.pg').toggle();%7D;%7D%0Awoltools.togglePageNo();"],
+        ['Play Bible chapter MP3 audio file', "javascript:%0Aif(!window.hasOwnProperty('woltools'))%7Bwoltools=%7B%7D;%7D%0Aif(!woltools.hasOwnProperty('playBibleChapter'))%7Bwoltools.playBibleChapter=function()%7Bfunction%20makePlayer(lang,book,chap)%7Bvar%20fmt,url,names=%5B'Ge','Ex','Le','Nu','De','Jos','Jg','Ru','1Sa','2Sa','1Ki','2Ki','1Ch','2Ch','Ezr','Ne','Es','Job','Ps','Pr','Ec','Ca','Isa','Jer','La','Eze','Da','Ho','Joe','Am','Ob','Jon','Mic','Na','Hab','Zep','Hag','Zec','Mal','Mt','Mr','Lu','Joh','Ac','Ro','1Co','2Co','Ga','Eph','Php','Col','1Th','2Th','1Ti','2Ti','Tit','Phm','Heb','Jas','1Pe','2Pe','1Jo','2Jo','3Jo','Jude','Re'%5D;if($('audio').length)%7Breturn;%7D%0Afmt='http://download.jw.org/files/media_bible/%2502d_%25s_%25s_%250'+(book===19?3:2)+'d.mp3';url=$.sprintf(fmt,book,names%5Bbook-1%5D,lang.toUpperCase(),chap);$('%3Caudio%20controls%3E%3Csource%20src=%22'+url+'%22%3E%3C/source%3E%3Cp%3EAudio%20is%20not%20supported...%3C/p%3E%3C/audio%3E').appendTo('#header').css('width','100%25');$('#spacer').height($('#spacer').height()+$('audio').height());%7D%0Avar%20url=$.url();if(url.segment(3)==='b')%7BmakePlayer(url.segment(5).split('-')%5B1%5D,url.segment(6),url.segment(7));%7Delse%7Balert('This%20is%20not%20a%20Bible%20chapter...');%7D%7D;%7D%0Awoltools.playBibleChapter();"],
+    ];
+
+    marklets.forEach(function (e) {
+        var s = '<li><a href="' + (isTouchDevice ? '?' : '') + e[1] + '">' + e[0] + '</a></li>';
+        $(s).appendTo('#bookmarklets ul');
+    });
 </script>
 </body>
 </html>

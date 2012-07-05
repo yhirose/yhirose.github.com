@@ -7,6 +7,9 @@ section {
   border: 1px solid #333;
   padding: 0 16px;
 }
+h1 {
+  font-size: 24pt;
+}
 h3 {
   margin-top: 32px;
 }
@@ -16,6 +19,13 @@ p {
 a {
   color: pink;
   text-decoration: none;
+}
+h2 a {
+  color: lightblue;
+  text-decoration: none;
+}
+strong {
+  color: lightgreen;
 }
 #content {
   margin: 64px auto;
