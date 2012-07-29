@@ -33,17 +33,20 @@ strong {
   line-height: 1.4em;
   color: #ccc;
 }
-#squote {
+.squote {
   color: lightgreen;
 }
-#lips {
+.lips {
   color: yellow;
 }
-#apple {
+.apple {
   color: lightblue;
 }
-#eyes {
+.eyes {
   color: white;
+}
+.mac {
+  color: yellow;
 }
 #header {
   border-bottom: 1px solid #3c3c3c;
