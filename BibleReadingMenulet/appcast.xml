@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<channel>
+    <title>Bible Reading Menulet's Changelog</title>
+    <link>http://yhirose.github.com/BibleReadingMenulet/appcast.xml</link>
+    <description>Most recent changes with links to updates.</description>
+    <language>en</language>
+    <!--
+    <item>
+        <title>Version 1.0</title>
+        <sparkle:releaseNotesLink>http://yhirose.github.com/BibleReadingMenulet/1.0.html</sparkle:releaseNotesLink>
+        <pubDate>Sat, 11 Aug 2012 19:38:32 -0400</pubDate>
+        <enclosure
+            url="http://yhirose.github.com/BibleReadingMenulet/BibleReadingMenulet_1_0.zip"
+            sparkle:version="241"
+            sparkle:shortVersionString="1.0"
+            sparkle:dsaSignature="MC0CFBfeCa1JyW30nbkBwainOzrN6EQuAh="
+            length="1472349"
+            type="application/octet-stream"
+        />
+    </item>
+    -->
+</channel>
+</rss>
