@@ -7,6 +7,20 @@
     <language>en</language>
 
     <item>
+        <title>Version 0.14</title>
+        <sparkle:releaseNotesLink>http://yhirose.github.com/BibleReadingMenulet/apps/rnotes_0.14.html</sparkle:releaseNotesLink>
+        <pubDate>Wed, 05 Sep 2012 21:17:47 -0400</pubDate>
+        <enclosure
+            url="http://yhirose.github.com/BibleReadingMenulet/apps/BibleReadingMenulet_0.14.zip"
+            sparkle:version="2"
+            sparkle:shortVersionString="0.14"
+            sparkle:dsaSignature="MC4CFQCbveiC0ToDstyRmTvyqoOpVsI9cgIVAJOIVyos6iNWb9ITW6a+hwV5uvFB"
+            length="911002"
+            type="application/octet-stream"
+        />
+    </item>
+
+    <item>
         <title>Version 0.13</title>
         <sparkle:releaseNotesLink>http://yhirose.github.com/BibleReadingMenulet/apps/rnotes_0.13.html</sparkle:releaseNotesLink>
         <pubDate>Sun, 12 Aug 2012 01:23:47 -0400</pubDate>
