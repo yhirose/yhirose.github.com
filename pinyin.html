@@ -7,16 +7,34 @@
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
 <style>
 #bookmarklet a {
-    padding: 8px;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
     text-align: center;
     color: white;
     background-color: orange;
+
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+    box-shadow: 1px 1px 1px rgba(0,0,0, .29), inset 1px 1px 1px rgba(255,255,255, .44);
+
+    -webkit-transition: all 0.15s ease;
+    -moz-transition: all 0.15s ease;
+    -o-transition: all 0.15s ease;
+    -ms-transition: all 0.15s ease;
+    transition: all 0.15s ease;
 }
-#remove {
-    color: aqua;
+#bookmarklet a:hover {
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
+    box-shadow: 1px 1px 1px rgba(0,0,0,.29), inset 0px 0px 2px rgba(0,0,0, .5);
 }
-#begin {
-    color: aqua;
+.url {
+    font-size: 1.4em;
+    color: #f0e68c;
 }
 </style>
 </head>
@@ -25,14 +43,15 @@
 <section id='bookmarklets'>
 <h2>Chinese Pinyin bookmarklet for WOL</h2>
 <h3>Installation for PC and Mac</h3>
-<p>Please drag and drop the following orange button on the bookmark bar:</d<p>
-<p id="bookmarklet"></p>
+<p>
+<span id="bookmarklet"></span>&nbsp;&nbsp;&nbsp;<span>Drag and drop this button on bookmark bar.<span>
+</p>
 <h3>Installation for iOS</h3>
 <ol>
 <li id="bookmarklet4ios"></li>
 <li>Bookmark this page</li>
 <li>Press Bookmark button, press Edit button and select the Pinyin bookmark</li>
-<li>Remove first portion of URL, "<span id="remove">http://yhirose.github.com/wol.html?</span>". In other words, URL should begin with "<span id="begin">javascript:%0Aif...</span>".</li>
+<li>Remove first portion of URL, <span class="url">http://yhirose.github.com/wol.html?</span>. In other words, URL should begin with <span class="url">javascript:%0Aif...</span>.</li>
 </ol>
 <h3>How to use</h3>
 <p>Open any Chinese page on WOL such as <a href="http://wol.jw.org/zh-Hans/wol/h/r23/lp-chs">this</a>, then select the installed Pinyin boolmark.</p>
