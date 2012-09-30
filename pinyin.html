@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'/>
+<title>Pinyin bookmarklet</title>
+<link rel='stylesheet' type='text/css' href='/css/screen.css'>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<style>
+#bookmarklet a {
+    padding: 8px;
+    text-align: center;
+    color: white;
+    background-color: orange;
+}
+#remove {
+    color: red;
+}
+#begin {
+    color: aqua;
+}
+.pinyin {
+    color: yellow;
+}
+</style>
+</head>
+<body>
+<div id='content'>
+<section id='bookmarklets'>
+<h2>Chinese <span class="pinyin">Pinyin</span> bookmarklet for WOL</h2>
+<h3>Installation for PC and Mac</h3>
+<p>Please drag and drop the following orange button on the bookmark bar:</d<p>
+<p id="bookmarklet"></p>
+<h3>Installation for iOS</h3>
+<ol>
+<li id="bookmarklet4ios"></li>
+<li>Bookmark this page</li>
+<li>Press Bookmark button, press Edit button and select the Pinyin bookmark</li>
+<li>Remove first portion of URL, "<span id="remove">http://yhirose.github.com/wol.html?</span>". In other words, URL should begin with "<span id="begin">javascript:%0Aif...</span>".</li>
+</ol>
+<h3>How to use</h3>
+<p>Open any Chinese page on WOL such as <a href="http://wol.jw.org/zh-Hans/wol/h/r23/lp-chs">this</a>, then select the installed Pinyin boolmark.</p>
+</section>
+<section id='copyright'>
+copyright &#169; 2012 yuji hirose. all rights reserved.
+</section>
+</div>
+<script>
+    var isTouchDevice = 'ontouchend' in document,
+        marklet = "javascript:%0Aif(!window.hasOwnProperty('FormData'))%7Balert(%22This%20Pinyin%20bookmarklet%20doesn't%20work%20on%20this%20browser.%5CnWe%20recommend%20using%20Google%20Chrome%20or%20Apple%20Safari.%5CnSorry...%22);%7Delse%7Bif(!window.hasOwnProperty('woltools'))%7Bwoltools=%7B%7D;%7D%0Aif(!woltools.hasOwnProperty('togglePinyin'))%7Bwoltools.togglePinyin=function()%7Bif(location.pathname.match(/lp-(chs?)/))%7Bvar%20lang=RegExp.$1;if(!$('ruby').length)%7B$('.par').each(function()%7Bvar%20$this=$(this),text=$this.html(),type=(lang==='chs'?'jian':'fan');$.post('http://kujirahand.com/web-tools/pinyin-api.php',%7Btext:text,t:type,rb:1,pf:1%7D).done(function(data)%7B$this.html(data);$('.document%20rt').css('font-size','0.7em');$('.document%20p.sb').css('line-height','2.2em');if(navigator.userAgent.match(/(iPad%7CiPhone%7CiPod);/i))%7Bapp.setupTooltip($('.document'));%7D%7D);%7D);%7D%0A$('rt').toggle();%7D%7D;%7D%0Awoltools.togglePinyin();%7D";
+
+    var s = '<a href="' + (isTouchDevice ? '?' : '') + marklet + '"></a>';
+    $(s).appendTo('#bookmarklet').text("Pinyin");
+    $(s).appendTo('#bookmarklet4ios').text("Click this Link");
+</script>
+</body>
+</html>
