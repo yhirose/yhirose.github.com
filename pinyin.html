@@ -68,7 +68,7 @@ copyright &#169; 2012 yuji hirose. all rights reserved.
 </div>
 <script>
     var isTouchDevice = 'ontouchend' in document,
-        marklet = "javascript:%0Aif(!window.hasOwnProperty('FormData'))%7Balert(%22This%20Pinyin%20bookmarklet%20doesn't%20work%20on%20this%20browser.%5CnWe%20recommend%20using%20Google%20Chrome%20or%20Apple%20Safari.%5CnSorry...%22);%7Delse%7Bif(!window.hasOwnProperty('woltools'))%7Bwoltools=%7B%7D;%7D%0Aif(!woltools.hasOwnProperty('togglePinyin'))%7Bwoltools.togglePinyin=function()%7Bif(location.pathname.match(/lp-(chs?)/))%7Bvar%20lang=RegExp.$1;if(!$('ruby').length)%7B$('.par').each(function()%7Bvar%20$this=$(this),text=$this.html(),type=(lang==='chs'?'jian':'fan');$.post('http://kujirahand.com/web-tools/pinyin-api.php',%7Btext:text,t:type,rb:1,pf:1%7D).done(function(data)%7B$this.html(data);$('.document%20rt').css('font-size','0.7em');$('.document%20p.sb').css('line-height','2.2em');if(navigator.userAgent.match(/(iPad%7CiPhone%7CiPod);/i))%7Bapp.setupTooltip($('.document'));%7D%7D);%7D);%7D%0A$('rt').toggle();%7D%7D;%7D%0Awoltools.togglePinyin();%7D";
+        marklet = "javascript:%0Aif(window.hasOwnProperty('pinyin'))%0Awindow.pinyin();else%0A$('script').attr('src','https://raw.github.com/yhirose/wol-bookmarklets/master/pinyin.js').appendTo('body');";
 
     var s = '<a href="' + (isTouchDevice ? '?' : '') + marklet + '"></a>';
     $(s).appendTo('#bookmarklet').text("Pinyin");
