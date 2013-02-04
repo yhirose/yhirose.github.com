@@ -72,7 +72,7 @@ copyright &#169; 2012 yuji hirose. all rights reserved.
 </div>
 <script>
     var isTouchDevice = 'ontouchend' in document,
-        marklet = "javascript:%0Aif(window.hasOwnProperty('pinyin'))%0Awindow.pinyin();else%0A$('script').attr('src','https://raw.github.com/yhirose/wol-bookmarklets/master/pinyin.js').appendTo('body');";
+    marklet = "javascript:%0Aif(window.hasOwnProperty('pinyin'))%0Awindow.pinyin();else%0A$('%3Cscript%3E%3C/script%3E').attr('src','https://raw.github.com/yhirose/wol-bookmarklets/master/pinyin.js').appendTo('body');";
 
     var s = '<a href="' + (isTouchDevice ? '?' : '') + marklet + '"></a>';
     $(s).appendTo('#bookmarklet').text("Pinyin");
