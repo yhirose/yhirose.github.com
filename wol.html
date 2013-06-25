@@ -33,10 +33,9 @@ copyright &#169; 2013 yuji hirose. all rights reserved.
     var isTouchDevice = 'ontouchend' in document,
         driver = "javascript:%0Aif(window.hasOwnProperty('{name}'))%0Awindow.{name}();else%0A$('%3Cscript%3E%3C/script%3E').attr('src','https://raw.github.com/yhirose/wol-bookmarklets/master/{name}.js').appendTo('body');",
         marklets = [
-        ['play bible chapter mp3 audio file', "javascript:%0Aif(!window.hasOwnProperty('woltools'))%7Bwoltools=%7B%7D;%7D%0Aif(!woltools.hasOwnProperty('playBibleChapter'))%7Bwoltools.playBibleChapter=function()%7Bfunction%20makePlayer(lang,book,chap)%7Bvar%20fmt,url,names=%5B'Ge','Ex','Le','Nu','De','Jos','Jg','Ru','1Sa','2Sa','1Ki','2Ki','1Ch','2Ch','Ezr','Ne','Es','Job','Ps','Pr','Ec','Ca','Isa','Jer','La','Eze','Da','Ho','Joe','Am','Ob','Jon','Mic','Na','Hab','Zep','Hag','Zec','Mal','Mt','Mr','Lu','Joh','Ac','Ro','1Co','2Co','Ga','Eph','Php','Col','1Th','2Th','1Ti','2Ti','Tit','Phm','Heb','Jas','1Pe','2Pe','1Jo','2Jo','3Jo','Jude','Re'%5D;if($('audio').length)%7Breturn;%7D%0Afmt='http://download.jw.org/files/media_bible/%2502d_%25s_%25s_%250'+(book==19?3:2)+'d.mp3';url=$.sprintf(fmt,book,names%5Bbook-1%5D,lang.toUpperCase(),chap);$('%3Caudio%20controls%3E%3Csource%20src=%22'+url+'%22%3E%3C/source%3E%3Cp%3EAudio%20is%20not%20supported...%3C/p%3E%3C/audio%3E').appendTo('#header').css('width','100%25');$('#spacer').height($('#spacer').height()+$('audio').height());%7D%0Avar%20url=$.url();if(url.segment(3)==='b')%7BmakePlayer(url.segment(5).split('-')%5B1%5D,url.segment(6),url.segment(7));%7Delse%7Balert('This%20is%20not%20a%20Bible%20chapter...');%7D%7D;%7D%0Awoltools.playBibleChapter();"],
-        ['extract bible citations', driver.replace(/\{name\}/g, 'extract')],
-        ['copy with caption', driver.replace(/\{name\}/g, 'copy')]
-    ];
+            ['extract bible citations', driver.replace(/\{name\}/g, 'extract')],
+            ['copy with caption', driver.replace(/\{name\}/g, 'copy')]
+        ];
 
     for (var i = 0; i < marklets.length; i++) {
         var e = marklets[i],
