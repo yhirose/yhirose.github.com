@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Airport Charts</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+  }
+  .frame {
+    padding: .5em;
+  }
+  .menu {
+    padding: .3em;
+  }
+  .menu > label {
+    margin-right: .3em;
+  }
+  .list {
+    padding: .3em;
+  }
+</style>
+<body>
+<div class="frame">
+  <div class="menu">
+    <label>Date: <input id="date" type="number"></label>
+    <label>Filter: <input id="filter" type="input"></label>
+  </div>
+  <div class="list">
+    <div id="list"></div>
+  </div>
+</div>
+</body>
+<script>
+  const airports = [
+    { icao: 'RORA', name: 'Aguni' },
+    { icao: 'RJOE', name: 'Akeno' },
+    { icao: 'RJSK', name: 'Akita' },
+    { icao: 'RJDA', name: 'Amakusa' },
+    { icao: 'RJKA', name: 'Amami' },
+    { icao: 'RJSA', name: 'Aomori' },
+    { icao: 'RJEC', name: 'Asahikawa(Civil)' },
+    { icao: 'RJCA', name: 'Asahikawa(Mil)' },
+    { icao: 'RJFA', name: 'Ashiya' },
+    { icao: 'RJTA', name: 'Atsugi' },
+    { icao: 'RJCJ', name: 'Chitose' },
+    { icao: 'RJTF', name: 'Chofu' },
+    { icao: 'RJGG', name: 'Chubu Centrair INTL' },
+    { icao: 'RJFE', name: 'Fukue' },
+    { icao: 'RJNF', name: 'Fukui' },
+    { icao: 'RJFF', name: 'Fukuoka' },
+    { icao: 'RJSF', name: 'Fukushima' },
+    { icao: 'ROTM', name: 'Futenma' },
+    { icao: 'RJNG', name: 'Gifu' },
+    { icao: 'RJTH', name: 'Hachijojima' },
+    { icao: 'RJSH', name: 'Hachinohe' },
+    { icao: 'RJCH', name: 'Hakodate' },
+    { icao: 'RJNH', name: 'Hamamatsu' },
+    { icao: 'RJSI', name: 'Hanamaki' },
+    { icao: 'RORH', name: 'Hateruma' },
+    { icao: 'RJOA', name: 'Hiroshima' },
+    { icao: 'RJOF', name: 'Hofu' },
+    { icao: 'RJAH', name: 'Hyakuri' },
+    { icao: 'RORE', name: 'Iejima(Civil)' },
+    { icao: 'RJDB', name: 'Iki' },
+    { icao: 'RJTJ', name: 'Iruma' },
+    { icao: 'RJOI', name: 'Iwakuni' },
+    { icao: 'RJOW', name: 'Iwami' },
+    { icao: 'RJAW', name: 'Iwoto' },
+    { icao: 'RJOC', name: 'Izumo' },
+    { icao: 'RODN', name: 'Kadena' },
+    { icao: 'RJFK', name: 'Kagoshima' },
+    { icao: 'RJDK', name: 'Kamigoto' },
+    { icao: 'RJFY', name: 'Kanoya' },
+    { icao: 'RJBB', name: 'Kansai INTL' },
+    { icao: 'RJAK', name: 'Kasumigaura' },
+    { icao: 'RJSU', name: 'Kasuminome' },
+    { icao: 'ROKR', name: 'Kerama' },
+    { icao: 'RJKI', name: 'Kikai/Kikaigashima Is.' },
+    { icao: 'RJTK', name: 'Kisarazu' },
+    { icao: 'RORK', name: 'Kitadaito' },
+    { icao: 'RJFR', name: 'Kitakyushu' },
+    { icao: 'RJBE', name: 'Kobe' },
+    { icao: 'RJOK', name: 'Kochi' },
+    { icao: 'RJBK', name: 'Kohnan' },
+    { icao: 'RJNK', name: 'Kanazawa/Komatsu' },
+    { icao: 'RJAZ', name: 'Kozushima' },
+    { icao: 'RJFT', name: 'Kumamoto' },
+    { icao: 'ROKJ', name: 'Kume Jima' },
+    { icao: 'RJCK', name: 'Kushiro' },
+    { icao: 'RJAF', name: 'Matsumoto' },
+    { icao: 'RJST', name: 'Matsushima' },
+    { icao: 'RJOM', name: 'Matsuyama' },
+    { icao: 'RJCM', name: 'Memanbetsu' },
+    { icao: 'RJDM', name: 'Metabaru' },
+    { icao: 'RJOH', name: 'Miho' },
+    { icao: 'ROMD', name: 'Minami Daito' },
+    { icao: 'RJAM', name: 'Minamitorishima' },
+    { icao: 'RJSM', name: 'Misawa' },
+    { icao: 'RJTQ', name: 'Miyakejima' },
+    { icao: 'ROMY', name: 'Miyako' },
+    { icao: 'RJFM', name: 'Miyazaki' },
+    { icao: 'RJEB', name: 'Monbetsu' },
+    { icao: 'RJFU', name: 'Nagasaki' },
+    { icao: 'RJNA', name: 'Nagoya' },
+    { icao: 'ROAH', name: 'Naha' },
+    { icao: 'RJCN', name: 'Nakashibetsu' },
+    { icao: 'RJBD', name: 'Nanki Shirahama' },
+    { icao: 'RJAA', name: 'Narita INTL' },
+    { icao: 'RJCC', name: 'Sapporo/New Chitose' },
+    { icao: 'ROIG', name: 'New Ishigaki' },
+    { icao: 'RJSN', name: 'Niigata' },
+    { icao: 'RJAN', name: 'Niijima' },
+    { icao: 'RJNW', name: 'Noto' },
+    { icao: 'RJFN', name: 'Nyutabaru' },
+    { icao: 'RJCB', name: 'Obihiro' },
+    { icao: 'RJSR', name: 'Odate-Noshiro' },
+    { icao: 'RJFO', name: 'Oita' },
+    { icao: 'RJDO', name: 'Ojika' },
+    { icao: 'RJOB', name: 'Okayama' },
+    { icao: 'RJNO', name: 'Oki' },
+    { icao: 'RJKB', name: 'Okierabu' },
+    { icao: 'RJEO', name: 'Okushiri' },
+    { icao: 'RJSO', name: 'Ominato' },
+    { icao: 'RJDU', name: 'Omura' },
+    { icao: 'RJOO', name: 'Osaka INTL' },
+    { icao: 'RJTO', name: 'Oshima' },
+    { icao: 'RJOZ', name: 'Ozuki' },
+    { icao: 'RJCR', name: 'Rebun' },
+    { icao: 'RJER', name: 'Rishiri Is.' },
+    { icao: 'RJSD', name: 'Sado' },
+    { icao: 'RJFS', name: 'Saga' },
+    { icao: 'RJCO', name: 'Sapporo/Okadama' },
+    { icao: 'RJSS', name: 'Sendai' },
+    { icao: 'RJTL', name: 'Shimofusa' },
+    { icao: 'RORS', name: 'Shimojishima' },
+    { icao: 'RJNY', name: 'Yaizu/Shizuhama' },
+    { icao: 'RJNS', name: 'Shizuoka' },
+    { icao: 'RJSY', name: 'Shonai' },
+    { icao: 'RJTC', name: 'Tachikawa' },
+    { icao: 'RJBT', name: 'Tajima' },
+    { icao: 'RJOT', name: 'Takamatsu' },
+    { icao: 'RJFG', name: 'Tanegashima' },
+    { icao: 'RORT', name: 'Tarama' },
+    { icao: 'RJTE', name: 'Tateyama' },
+    { icao: 'RJCT', name: 'Tokachi' },
+    { icao: 'RJKN', name: 'Tokunoshima Is.' },
+    { icao: 'RJOS', name: 'Tokushima' },
+    { icao: 'RJTT', name: 'Tokyo INTL' },
+    { icao: 'RJOR', name: 'Tottori' },
+    { icao: 'RJNT', name: 'Toyama' },
+    { icao: 'RJFZ', name: 'Tsuiki' },
+    { icao: 'RJDT', name: 'Tsushima' },
+    { icao: 'RJTU', name: 'Utsunomiya' },
+    { icao: 'RJCW', name: 'Wakkanai' },
+    { icao: 'RJFC', name: 'Yakushima' },
+    { icao: 'RJSC', name: 'Yamagata' },
+    { icao: 'RJDC', name: 'Yamaguchi-Ube' },
+    { icao: 'RJOY', name: 'Osaka/Yao' },
+    { icao: 'RJTY', name: 'Yokota' },
+    { icao: 'ROYN', name: 'Yonaguni Jima' },
+    { icao: 'RORY', name: 'Yoron' },
+  ];
+
+  let date = localStorage.getItem('date') || '20240905';
+  let filter = '';
+
+  function renderHTML() {
+    let list = '';
+    for (const { icao, name } of airports) {
+      if (!filter.length ||
+          icao.toLowerCase().includes(filter.toLowerCase()) ||
+          name.toLowerCase().includes(filter.toLowerCase())) {
+        const url = `https://aisjapan.mlit.go.jp/html/AIP/html/${date}/eAIP/${date}/JP-AD-2-${icao}-en-JP.html#${icao}-AD-2.24`;
+        list += `<li><a href="${url}">${icao} - ${name}</a></li>`
+      }
+    }
+
+    document.querySelector('#list').innerHTML = `<ul class="list">${list}</ul>`;
+  };
+
+  document.addEventListener("DOMContentLoaded", (ev) => {
+    const dateElement = document.querySelector('#date');
+    const filterElement = document.querySelector('#filter');
+
+    dateElement.addEventListener('keyup', (ev) => {
+      date = ev.target.value;
+      renderHTML();
+      localStorage.setItem('date', date);
+    });
+
+    filterElement.addEventListener('keyup', (ev) => {
+      filter = ev.target.value;
+      renderHTML();
+    });
+
+    window.addEventListener("pageshow", function (event) {
+      const entries = performance.getEntriesByType("navigation");
+      entries.forEach(entry => {
+        if (entry.type === "back_forward") {
+          date = dateElement.value;
+          filter = filterElement.value;
+          renderHTML();
+        }
+      });
+    });
+
+    dateElement.value = date;
+    filterElement.value = filter;
+
+    renderHTML();
+
+    filterElement.focus();
+  });
+</script>
+</html>
