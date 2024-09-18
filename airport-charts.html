@@ -12,15 +12,18 @@
     list-style: none;
   }
   .frame {
-    padding: .5em;
+    padding: 1em;
   }
   .menu {
     padding: .3em;
   }
-  .menu > label {
+  .menu > label > input {
+    margin-right: .5em;
+  }
+  .menu > span > span {
     margin-right: .3em;
   }
-  .list {
+  .section {
     padding: .3em;
   }
 </style>
@@ -28,11 +31,10 @@
 <div class="frame">
   <div class="menu">
     <label>Date: <input id="date" type="number"></label>
-    <label>Filter: <input id="filter" type="input"></label>
+    <label>Filter: <input id="filter" type="input"><input id="filter2" type="input"></label>
+    <span id="links"></span>
   </div>
-  <div class="list">
-    <div id="list"></div>
-  </div>
+  <div class="section" id="airports"></div>
 </div>
 </body>
 <script>
@@ -168,34 +170,56 @@
 
   let date = localStorage.getItem('date') || '20240905';
   let filter = '';
+  let filter2 = '';
 
-  function renderHTML() {
-    let list = '';
+  function includes(filter, icao, name) {
+    return filter.length > 0 &&
+      (icao.toLowerCase().includes(filter.toLowerCase()) ||
+       name.toLowerCase().includes(filter.toLowerCase()));
+  }
+
+  function renderLinks() {
+    let html = `
+      <span><a href="https://aisjapan.mlit.go.jp/html/AIP/html/${date}/eAIP/${date}/JP-ENR-6-en-JP.html">En-Route</a></span>
+      <span><a href="https://aisjapan.mlit.go.jp/html/AIP/html/${date}/eAIC/JP-eAICs-jp-JP.html">AICs</a></span>
+    `;
+
+    document.querySelector('#links').innerHTML = html;
+  };
+
+  function renderAirports() {
+    let html = '';
     for (const { icao, name } of airports) {
-      if (!filter.length ||
-          icao.toLowerCase().includes(filter.toLowerCase()) ||
-          name.toLowerCase().includes(filter.toLowerCase())) {
+      if ((!filter.length && !filter2.length) ||
+          includes(filter, icao, name) ||
+          includes(filter2, icao, name)) {
         const url = `https://aisjapan.mlit.go.jp/html/AIP/html/${date}/eAIP/${date}/JP-AD-2-${icao}-en-JP.html#${icao}-AD-2.24`;
-        list += `<li><a href="${url}">${icao} - ${name}</a></li>`
+        html += `<li><a href="${url}">${icao} - ${name}</a></li>`
       }
     }
 
-    document.querySelector('#list').innerHTML = `<ul class="list">${list}</ul>`;
+    document.querySelector('#airports').innerHTML = `<ul>${html}</ul>`;
   };
 
   document.addEventListener("DOMContentLoaded", (ev) => {
     const dateElement = document.querySelector('#date');
     const filterElement = document.querySelector('#filter');
+    const filter2Element = document.querySelector('#filter2');
 
     dateElement.addEventListener('keyup', (ev) => {
       date = ev.target.value;
-      renderHTML();
+      renderAirports();
       localStorage.setItem('date', date);
     });
 
     filterElement.addEventListener('keyup', (ev) => {
       filter = ev.target.value;
-      renderHTML();
+      renderAirports();
+    });
+
+    filter2Element.addEventListener('keyup', (ev) => {
+      filter2 = ev.target.value;
+      renderAirports();
     });
 
     window.addEventListener("pageshow", function (event) {
@@ -204,15 +228,18 @@
         if (entry.type === "back_forward") {
           date = dateElement.value;
           filter = filterElement.value;
-          renderHTML();
+          filter2 = filter2Element.value;
+          renderAirports();
         }
       });
     });
 
     dateElement.value = date;
     filterElement.value = filter;
+    filter2Element.value = filter2;
 
-    renderHTML();
+    renderLinks();
+    renderAirports();
 
     filterElement.focus();
   });
