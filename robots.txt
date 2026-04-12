@@ -1,0 +1,2 @@
+Sitemap: https://yhirose.github.io/docs-gen/sitemap.xml
+Sitemap: https://yhirose.github.io/cpp-httplib/sitemap.xml
